@@ -31,11 +31,11 @@ header.top p{margin:1px 0 0;font-size:12px;color:var(--terra);letter-spacing:2px
 .card{background:#fff;border:1px solid var(--borde);border-radius:16px;padding:20px;box-shadow:0 6px 22px rgba(104,110,84,.07)}
 .card h2{margin:0 0 12px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--terra);font-weight:600}
 textarea{width:100%;min-height:220px;padding:13px;border:1px solid var(--borde);border-radius:11px;font-size:14px;resize:vertical;font-family:inherit;line-height:1.55;color:var(--ink);background:#fffdfb}
-.btn{border:none;border-radius:11px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;background:var(--terra);color:#fff;transition:.15s;letter-spacing:.3px}
+.btn{border:none;border-radius:11px;padding:11px 18px;font-size:13.5px;font-weight:600;cursor:pointer;background:var(--terra);color:#fff;transition:.15s;letter-spacing:.3px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;box-sizing:border-box}
 .btn:hover{background:#9a6249}
 .btn.sec{background:#fff;color:var(--terra);border:1px solid var(--terra-s)}
 .btn.sec:hover{background:var(--cream)}
-.btn.big{width:100%;padding:15px;font-size:15px;margin-top:12px;background:var(--sage)}
+.btn.big{width:100%;padding:15px;font-size:15px;margin-top:12px;background:var(--sage);display:flex}
 .btn.big:hover{background:#565b44}
 .row-actions{display:flex;gap:10px;margin-top:13px;flex-wrap:wrap}
 .hint{font-size:12.5px;color:var(--muted);margin:8px 0 0;line-height:1.55}
@@ -128,7 +128,6 @@ textarea{width:100%;min-height:220px;padding:13px;border:1px solid var(--borde);
           <div class="pdf-empty" id="pdfEmpty">Pega el texto y presiona <b>“Generar borrador”</b> para ver la vista previa en tamaño A4.</div>
         </div>
         <button class="btn big" onclick="descargarPDF()">⬇ Descargar PDF</button>
-        <a class="btn big wa" href="https://wa.me/56937127838?text=Hola%20Nubia%2C%20te%20env%C3%ADo%20una%20consulta." target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
       </div>
     </div>
   </div>
@@ -165,12 +164,20 @@ var _pl=document.getElementById('pvLogo'); if(_pl) _pl.src=ASSETS.logo;
    - Fecha automática · Web nubiaavendano.org
    Compartido por la web (index.html) y las pruebas (Node).
    ============================================================ */
+/* ============================================================
+   Motor de render del PDF · Nubia Avendaño Banquetería  (v2)
+   - Auto-ajuste del tamaño según extensión (armónico en 1 hoja)
+   - Segunda hoja automática y balanceada cuando no cabe
+   - Pie reorganizado: Contacto · Facturación · Transferencia
+   - Fecha automática · Web nubiaavendano.org
+   Compartido por la web (index.html) y las pruebas (Node).
+   ============================================================ */
 (function(global){
 
   const CREAM=[252,248,245], BLUSH=[244,229,221], BLUSH_D=[214,182,168];
   const TERRA=[176,118,92], TERRA_S=[201,158,138];
   const SAGE=[104,110,84], SAGE_S=[150,157,128];
-  const INK=[60,54,47], MUTED=[120,110,98];
+  const INK=[60,54,47], MUTED=[120,110,98], WA=[111,174,144];
 
   const setC=(d,c)=>d.setTextColor(c[0],c[1],c[2]);
   const setF=(d,c)=>d.setFillColor(c[0],c[1],c[2]);
@@ -212,10 +219,17 @@ var _pl=document.getElementById('pvLogo'); if(_pl) _pl.src=ASSETS.logo;
   }
 
   function footerFull(doc){
-    let y=250; divider(doc,y,ML,MR,TERRA_S); y+=6.4;
-    doc.setFont('Montserrat','bold'); doc.setFontSize(7.8); setC(doc,TERRA);
+    let y=246; divider(doc,y,ML,MR,TERRA_S); y+=5.2;
+    doc.setFont('Montserrat','bold'); doc.setFontSize(7.6); setC(doc,TERRA);
     spacedText(doc,'BANQUETERÍA  ·  COFFEE BREAK  ·  EVENTOS',PW/2,y,0.6,'center');
-    y+=6.6;
+    y+=2;
+    // botón WhatsApp clicable (abre WhatsApp al tocarlo en el PDF)
+    const pw=64, ph=7.2, px=(PW-pw)/2, py=y;
+    setF(doc,WA); doc.roundedRect(px,py,pw,ph,3.6,3.6,'F');
+    doc.setFont('Montserrat','bold'); doc.setFontSize(8); setC(doc,[255,255,255]);
+    doc.text('Escríbenos por WhatsApp', PW/2, py+4.85, {align:'center'});
+    doc.link(px,py,pw,ph,{url:'https://wa.me/56937127838'});
+    y+=ph+5.2;
     const cols=[
       {x:ML,   t:'CONTACTO',    l:['+56 9 3712 7838','nubiaavendano@hotmail.com','nubiaavendano.org']},
       {x:84,   t:'FACTURACIÓN', l:['Nubia Avendaño Canales','RUT 76.877.732-2','Las Hortensias 5552, Talcahuano']},
