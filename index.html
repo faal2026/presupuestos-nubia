@@ -47,10 +47,10 @@ textarea{width:100%;min-height:220px;padding:13px;border:1px solid var(--borde);
 .scaler{transform:scale(.66);transform-origin:top center}
 @media (max-width:960px){.scaler{transform:scale(.44)}}
 /* ---- Hoja A4 (vista previa fiel) ---- */
-.sheet{width:794px;min-height:1123px;background:var(--cream);position:relative;box-shadow:0 8px 30px rgba(0,0,0,.16);padding:0}
+.sheet{width:794px;min-height:1123px;background:var(--cream);position:relative;box-shadow:0 8px 30px rgba(0,0,0,.16);padding:0;display:flex;flex-direction:column}
 .sheet .fr1{position:absolute;inset:34px;border:2px solid var(--terra);pointer-events:none}
 .sheet .fr2{position:absolute;inset:42px;border:1px solid var(--terra-s);pointer-events:none}
-.sheet .inner{position:relative;padding:64px 98px 40px}
+.sheet .inner{position:relative;padding:64px 98px 22px;flex:1 0 auto}
 .sheet .logo{display:block;width:150px;height:150px;object-fit:cover;margin:0 auto 6px}
 .sheet .presu{text-align:center;font-family:'Montse';font-weight:600;font-size:26px;letter-spacing:11px;color:var(--terra);margin:8px 0 0;padding-left:11px}
 .divider{display:flex;align-items:center;gap:10px;margin:16px 0 22px}
@@ -66,7 +66,7 @@ textarea{width:100%;min-height:220px;padding:13px;border:1px solid var(--borde);
 .sheet .valor{background:var(--blush);border:1px solid var(--blush-d);border-radius:12px;padding:16px 22px;margin:20px 0}
 .sheet .valor .lb{font-family:'Montse';font-weight:600;font-size:12px;letter-spacing:5px;color:var(--terra);margin-bottom:2px}
 .sheet .valor .amt{font-family:'Montse';font-weight:600;font-size:25px;color:var(--terra)}
-.sheet .foot{position:absolute;left:98px;right:98px;bottom:64px;text-align:center}
+.sheet .foot{margin:0 98px 42px;text-align:center}
 .sheet .foot .fdiv{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .sheet .foot .fdiv .ln{flex:1;height:1px;background:var(--terra-s)}
 .sheet .foot .fdiv .dm{width:9px;height:9px;background:var(--terra-s);transform:rotate(45deg)}
@@ -74,6 +74,13 @@ textarea{width:100%;min-height:220px;padding:13px;border:1px solid var(--borde);
 .sheet .foot .cl{font-family:'Montse';font-weight:300;font-size:13.5px;color:var(--muted);margin:2px 0}
 .sheet .foot .bank{color:var(--sage)}
 .foot-note{font-size:11.5px;color:#9a8d84;text-align:center;margin-top:20px}
+.sheet .presu-date{text-align:center;font-family:'Montse';font-weight:300;font-size:12px;letter-spacing:1px;color:var(--muted);margin-top:8px}
+.sheet .foot .fcols{display:flex;justify-content:space-between;gap:18px;text-align:left;margin-top:4px}
+.sheet .foot .fcol{flex:1}
+.sheet .foot .fh{font-family:'Montse';font-weight:600;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--terra);margin-bottom:5px}
+.sheet .foot .fl{font-family:'Montse';font-weight:300;font-size:11.5px;color:var(--muted);line-height:1.55}
+.btn.big.wa{background:#6fae90;margin-top:10px}
+.btn.big.wa:hover{background:#5e9c7e}
 </style>
 </head>
 <body>
@@ -115,24 +122,28 @@ textarea{width:100%;min-height:220px;padding:13px;border:1px solid var(--borde);
               <div class="inner">
                 <img class="logo" id="pvLogo" alt="">
                 <div class="presu">PRESUPUESTO</div>
+                <div class="presu-date" id="pvDate"></div>
                 <div class="divider"><span class="ln"></span><span class="dm"></span><span class="ln"></span></div>
                 <div id="pvBody"></div>
               </div>
               <div class="foot">
                 <div class="fdiv"><span class="ln"></span><span class="dm"></span><span class="ln"></span></div>
                 <div class="biz">NUBIA AVENDAÑO CANALES · BANQUETERÍA Y COFFEE BREAK</div>
-                <div class="cl">Las Hortensias 5552, San Eugenio 2, Talcahuano</div>
-                <div class="cl">+56 9 3712 7838 · nubiaavendano@hotmail.com · @nubiaavendanobanqueteria</div>
-                <div class="cl bank">RUT 76.877.732-2 · Bancoestado Cuenta Vista 52970226419</div>
+                <div class="fcols">
+                  <div class="fcol"><div class="fh">Contacto</div><div class="fl">+56 9 3712 7838</div><div class="fl">nubiaavendano@hotmail.com</div><div class="fl">nubiaavendano.org</div></div>
+                  <div class="fcol"><div class="fh">Facturación</div><div class="fl">Nubia Avendaño Canales</div><div class="fl">RUT 76.877.732-2</div><div class="fl">Las Hortensias 5552, Talcahuano</div></div>
+                  <div class="fcol"><div class="fh">Transferencia</div><div class="fl">BancoEstado · Cuenta Vista</div><div class="fl">N° 52970226419</div><div class="fl">Nubia Avendaño Canales</div><div class="fl">RUT 76.877.732-2</div></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <button class="btn big" onclick="descargarPDF()">⬇ Descargar PDF</button>
+        <a class="btn big wa" href="https://wa.me/56937127838?text=Hola%20Nubia%2C%20te%20env%C3%ADo%20una%20consulta." target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
       </div>
     </div>
   </div>
-  <p class="foot-note">Hecho para Nubia Avendaño Banquetería · funciona 100% en tu navegador.</p>
+  <p class="foot-note">Nubia Avendaño Banquetería · nubiaavendano.org · funciona 100% en tu navegador.</p>
 </div>
 
 <script>
@@ -149,176 +160,207 @@ document.getElementById('pvLogo').src = ASSETS.logo;
    Motor de render del PDF · Nubia Avendaño Banquetería
    Compartido por la web (index.html) y las pruebas (Node).
    ============================================================ */
+/* ============================================================
+   Motor de render del PDF · Nubia Avendaño Banquetería  (v2)
+   - Auto-ajuste del tamaño según extensión (armónico en 1 hoja)
+   - Segunda hoja automática y balanceada cuando no cabe
+   - Pie reorganizado: Contacto · Facturación · Transferencia
+   - Fecha automática · Web nubiaavendano.org
+   Compartido por la web (index.html) y las pruebas (Node).
+   ============================================================ */
 (function(global){
 
-  // Paleta tomada del logo
-  const CREAM   = [252,248,245];
-  const BLUSH   = [244,229,221];
-  const BLUSH_D = [214,182,168];
-  const TERRA   = [176,118,92];
-  const TERRA_S = [201,158,138];
-  const SAGE    = [104,110,84];
-  const SAGE_S  = [150,157,128];
-  const INK     = [60,54,47];
-  const MUTED   = [120,110,98];
+  const CREAM=[252,248,245], BLUSH=[244,229,221], BLUSH_D=[214,182,168];
+  const TERRA=[176,118,92], TERRA_S=[201,158,138];
+  const SAGE=[104,110,84], SAGE_S=[150,157,128];
+  const INK=[60,54,47], MUTED=[120,110,98];
 
-  function setC(doc,c){ doc.setTextColor(c[0],c[1],c[2]); }
-  function setF(doc,c){ doc.setFillColor(c[0],c[1],c[2]); }
-  function setD(doc,c){ doc.setDrawColor(c[0],c[1],c[2]); }
+  const setC=(d,c)=>d.setTextColor(c[0],c[1],c[2]);
+  const setF=(d,c)=>d.setFillColor(c[0],c[1],c[2]);
+  const setD=(d,c)=>d.setDrawColor(c[0],c[1],c[2]);
 
-  function registerAssets(doc, A){
-    doc.addFileToVFS('CormR.ttf', A.fonts.cormR);   doc.addFont('CormR.ttf','Cormorant','normal');
-    doc.addFileToVFS('CormSB.ttf', A.fonts.cormSB); doc.addFont('CormSB.ttf','Cormorant','bold');
-    doc.addFileToVFS('MontL.ttf', A.fonts.montL);   doc.addFont('MontL.ttf','Montserrat','normal');
-    doc.addFileToVFS('MontSB.ttf', A.fonts.montSB); doc.addFont('MontSB.ttf','Montserrat','bold');
-    doc.addFileToVFS('MontR.ttf', A.fonts.montR);   doc.addFont('MontR.ttf','MontReg','normal');
+  function registerAssets(doc,A){
+    doc.addFileToVFS('CormR.ttf',A.fonts.cormR);   doc.addFont('CormR.ttf','Cormorant','normal');
+    doc.addFileToVFS('CormSB.ttf',A.fonts.cormSB); doc.addFont('CormSB.ttf','Cormorant','bold');
+    doc.addFileToVFS('MontL.ttf',A.fonts.montL);   doc.addFont('MontL.ttf','Montserrat','normal');
+    doc.addFileToVFS('MontSB.ttf',A.fonts.montSB); doc.addFont('MontSB.ttf','Montserrat','bold');
+    doc.addFileToVFS('MontR.ttf',A.fonts.montR);   doc.addFont('MontR.ttf','MontReg','normal');
   }
+  function spacedText(doc,txt,x,y,gap,align){ doc.setCharSpace(gap); doc.text(txt,x,y,{align:align||'left'}); doc.setCharSpace(0); }
+  function spacedWidth(doc,txt,gap){ return doc.getTextWidth(txt)+gap*Math.max(0,txt.length-1); }
+  function diamond(doc,cx,cy,s,color){ setF(doc,color); doc.triangle(cx-s,cy,cx,cy-s,cx,cy+s,'F'); doc.triangle(cx+s,cy,cx,cy-s,cx,cy+s,'F'); }
+  function divider(doc,y,ml,mr,color){ const cx=(ml+mr)/2; setD(doc,color); doc.setLineWidth(0.3); doc.line(ml,y,cx-6,y); doc.line(cx+6,y,mr,y); diamond(doc,cx,y,1.5,color); }
 
-  // texto con espaciado entre letras (para versalitas)
-  function spacedText(doc, txt, x, y, gap, align){
-    doc.setCharSpace(gap);
-    doc.text(txt, x, y, {align: align||'left'});
-    doc.setCharSpace(0);
-  }
-  function spacedWidth(doc, txt, gap){
-    return doc.getTextWidth(txt) + gap*Math.max(0, txt.length-1);
-  }
-
-  // rombo decorativo relleno
-  function diamond(doc, cx, cy, s, color){
-    setF(doc,color);
-    doc.triangle(cx-s,cy, cx,cy-s, cx,cy+s, 'F');
-    doc.triangle(cx+s,cy, cx,cy-s, cx,cy+s, 'F');
-  }
-
-  // divisor: línea — rombo — línea
-  function divider(doc, y, ml, mr, color){
-    const cx=(ml+mr)/2;
-    setD(doc,color); doc.setLineWidth(0.3);
-    doc.line(ml, y, cx-6, y);
-    doc.line(cx+6, y, mr, y);
-    diamond(doc, cx, y, 1.5, color);
-  }
-
-  const PW=210, PH=297;
-  const ML=26, MR=210-26, CW=PW-52;
-  const FOOTER_TOP=258;      // límite inferior del contenido
-  const BODY_TOP=80;
+  const PW=210,PH=297, ML=26, MR=210-26, CW=PW-52;
+  const CONTENT_TOP=86, CONTENT_BOTTOM=244, HA=CONTENT_BOTTOM-CONTENT_TOP;
 
   function pageChrome(doc){
-    // fondo crema
     setF(doc,CREAM); doc.rect(0,0,PW,PH,'F');
-    // marco doble elegante
-    setD(doc,TERRA); doc.setLineWidth(0.7);
-    doc.rect(9,9,PW-18,PH-18);
-    setD(doc,TERRA_S); doc.setLineWidth(0.3);
-    doc.rect(11.2,11.2,PW-22.4,PH-22.4);
+    setD(doc,TERRA); doc.setLineWidth(0.7); doc.rect(9,9,PW-18,PH-18);
+    setD(doc,TERRA_S); doc.setLineWidth(0.3); doc.rect(11.2,11.2,PW-22.4,PH-22.4);
   }
 
-  function header(doc, A){
-    // logo centrado
+  function header(doc,A,meta,pageIdx,totalPages){
     const lw=40, lx=(PW-lw)/2, ly=17;
-    doc.addImage(A.logo,'JPEG', lx, ly, lw, lw);
-    // título PRESUPUESTO
+    doc.addImage(A.logo,'JPEG',lx,ly,lw,lw);
     doc.setFont('Montserrat','bold'); doc.setFontSize(13); setC(doc,TERRA);
-    const t='PRESUPUESTO', gap=1.6;
-    const w=spacedWidth(doc,t,gap);
-    spacedText(doc, t, (PW-w)/2, 65, gap, 'left');
-    // divisor
-    divider(doc, 71, ML, MR, TERRA_S);
+    const t='PRESUPUESTO', gap=1.6, w=spacedWidth(doc,t,gap);
+    spacedText(doc,t,(PW-w)/2,65,gap,'left');
+    divider(doc,71,ML,MR,TERRA_S);
+    // fila fecha / hoja
+    const fecha=(meta&&meta.fecha)?((meta.lugar?meta.lugar+', ':'')+meta.fecha):'';
+    if(fecha){ doc.setFont('Montserrat','normal'); doc.setFontSize(9); setC(doc,MUTED); doc.text(fecha,MR,78,{align:'right'}); }
+    if(totalPages>1){ doc.setFont('Montserrat','bold'); doc.setFontSize(8.5); setC(doc,TERRA); doc.text('Hoja '+(pageIdx+1)+' de '+totalPages,ML,78); }
   }
 
-  function footer(doc){
-    let y=FOOTER_TOP;
-    divider(doc, y, ML, MR, TERRA_S);
-    y+=6.5;
+  function footerFull(doc){
+    let y=250; divider(doc,y,ML,MR,TERRA_S); y+=6.4;
     doc.setFont('Montserrat','bold'); doc.setFontSize(7.8); setC(doc,TERRA);
-    spacedText(doc,'NUBIA AVENDAÑO CANALES  ·  BANQUETERÍA Y COFFEE BREAK', PW/2, y, 0.4, 'center');
-    y+=5.2;
-    doc.setFont('Montserrat','normal'); doc.setFontSize(8.2); setC(doc,MUTED);
-    doc.text('Las Hortensias 5552, San Eugenio 2, Talcahuano', PW/2, y, {align:'center'}); y+=4.3;
-    doc.text('+56 9 3712 7838   ·   nubiaavendano@hotmail.com   ·   @nubiaavendanobanqueteria', PW/2, y, {align:'center'}); y+=4.3;
-    setC(doc,SAGE);
-    doc.text('RUT 76.877.732-2   ·   Bancoestado Cuenta Vista 52970226419', PW/2, y, {align:'center'});
+    spacedText(doc,'NUBIA AVENDAÑO CANALES  ·  BANQUETERÍA Y COFFEE BREAK',PW/2,y,0.4,'center');
+    y+=6.6;
+    const cols=[
+      {x:ML,   t:'CONTACTO',    l:['+56 9 3712 7838','nubiaavendano@hotmail.com','nubiaavendano.org']},
+      {x:84,   t:'FACTURACIÓN', l:['Nubia Avendaño Canales','RUT 76.877.732-2','Las Hortensias 5552, Talcahuano']},
+      {x:140,  t:'TRANSFERENCIA',l:['BancoEstado · Cuenta Vista','N° 52970226419','Nubia Avendaño Canales','RUT 76.877.732-2']},
+    ];
+    cols.forEach(c=>{
+      let yy=y;
+      doc.setFont('Montserrat','bold'); doc.setFontSize(6.8); setC(doc,TERRA);
+      spacedText(doc,c.t,c.x,yy,0.8,'left'); yy+=4.4;
+      doc.setFont('Montserrat','normal'); doc.setFontSize(7.4); setC(doc,MUTED);
+      c.l.forEach(line=>{ doc.text(line,c.x,yy); yy+=3.9; });
+    });
+  }
+  function footerSlim(doc,pageIdx,totalPages){
+    let y=272; divider(doc,y,ML,MR,TERRA_S); y+=6;
+    doc.setFont('Montserrat','normal'); doc.setFontSize(7.8); setC(doc,MUTED);
+    doc.text('Nubia Avendaño Banquetería · nubiaavendano.org',PW/2,y,{align:'center'});
+    doc.setFont('Montserrat','bold'); doc.setFontSize(7.8); setC(doc,TERRA);
+    doc.text('Hoja '+(pageIdx+1)+' de '+totalPages,MR,y,{align:'right'});
   }
 
-  // Render principal. Devuelve el doc.
-  function render(doc, modelo, A){
-    registerAssets(doc, A);
-    pageChrome(doc);
-    header(doc, A);
-
-    let y=BODY_TOP;
-    let firstPar=true;
-
-    function newPage(){ doc.addPage(); pageChrome(doc); y=30; }
-    function need(h){ if(y+h>FOOTER_TOP-6){ newPage(); } }
-
-    const items = modelo.filter(it=>it.text.trim()!=='' || it.type==='espacio');
-
-    items.forEach((item)=>{
-      const txt=item.text.trim();
-      if(item.type==='titulo'){
-        doc.setFont('Cormorant','bold'); doc.setFontSize(16); setC(doc,SAGE);
-        const lines=doc.splitTextToSize(txt, CW);
-        need(lines.length*6.4+6);
-        y+=3;
-        doc.text(lines, ML, y);
-        const lastw=doc.getTextWidth(lines[lines.length-1]);
-        y+=(lines.length-1)*6.4;
+  // ---- flujo de un bloque; devuelve nueva y (dibuja si draw) ----
+  function blockFlow(doc,b,k,y,draw){
+    const t=b.text.trim();
+    if(b.type==='titulo'){
+      const fs=15.5*k, lh=6.3*k;
+      doc.setFont('Cormorant','bold'); doc.setFontSize(fs);
+      const lines=doc.splitTextToSize(t,CW);
+      y+=3*k;
+      if(draw){
+        setC(doc,SAGE);
+        for(let i=0;i<lines.length;i++) doc.text(lines[i],ML,y+i*lh);
+        const yl=y+(lines.length-1)*lh, lw=doc.getTextWidth(lines[lines.length-1]);
         setD(doc,TERRA); doc.setLineWidth(0.5);
-        doc.line(ML, y+2.1, ML+Math.min(Math.max(lastw,16),40), y+2.1);
-        y+=8.5;
-      } else if(item.type==='vineta'){
-        doc.setFont('Montserrat','normal'); doc.setFontSize(9.7); setC(doc,INK);
-        const lines=doc.splitTextToSize(txt, CW-8);
-        need(lines.length*4.9+1.5);
-        diamond(doc, ML+2.2, y-1.3, 0.9, TERRA);
-        doc.text(lines, ML+7.5, y, {lineHeightFactor:1.28});
-        y+=lines.length*4.9+2.1;
-      } else if(item.type==='valor'){
-        doc.setFont('Cormorant','bold'); doc.setFontSize(16.5);
-        const lines=doc.splitTextToSize(txt, CW-28);
-        const bh=Math.max(15, lines.length*7+8);
-        need(bh+6);
-        y+=3;
-        setF(doc,BLUSH); doc.roundedRect(ML, y, CW, bh, 2.5, 2.5, 'F');
-        setD(doc,BLUSH_D); doc.setLineWidth(0.4); doc.roundedRect(ML, y, CW, bh, 2.5, 2.5, 'S');
-        // etiqueta VALOR
-        doc.setFont('Montserrat','bold'); doc.setFontSize(7.5); setC(doc,TERRA);
-        spacedText(doc,'VALOR', ML+9, y+6, 1.2,'left');
-        // monto (números lining, máxima claridad)
-        doc.setFont('Montserrat','bold'); doc.setFontSize(15); setC(doc,TERRA);
-        const shown = txt.replace(/^\s*valor\s*/i,'').trim() || txt;
-        doc.text(shown, ML+9, y+bh-4.8);
-        y+=bh+7;
-      } else { // parrafo
-        if(firstPar){
-          doc.setFont('Cormorant','normal'); doc.setFontSize(13); setC(doc,MUTED);
-          const lines=doc.splitTextToSize(txt, CW);
-          need(lines.length*5.6+4);
-          doc.text(lines, ML, y, {lineHeightFactor:1.32});
-          y+=lines.length*5.6+5.5;
-          firstPar=false;
-        } else {
-          doc.setFont('Montserrat','normal'); doc.setFontSize(9.7); setC(doc,INK);
-          const lines=doc.splitTextToSize(txt, CW);
-          need(lines.length*5.0+4);
-          doc.text(lines, ML, y, {lineHeightFactor:1.32});
-          y+=lines.length*5.0+4.5;
-        }
+        doc.line(ML,yl+2.1*k,ML+Math.min(Math.max(lw,16),42),yl+2.1*k);
       }
-    });
+      return y+lines.length*lh+8.5*k;
+    }
+    if(b.type==='vineta'){
+      const fs=10*k, lh=4.9*k;
+      doc.setFont('Montserrat','normal'); doc.setFontSize(fs);
+      const lines=doc.splitTextToSize(t,CW-8*k);
+      if(draw){
+        diamond(doc,ML+2.2*k,y-1.3*k,0.9*k,TERRA);
+        setC(doc,INK);
+        for(let i=0;i<lines.length;i++) doc.text(lines[i],ML+7.5*k,y+i*lh);
+      }
+      return y+lines.length*lh+2.4*k;
+    }
+    if(b.type==='valor'){
+      const shown=t.replace(/^\s*valor\s*/i,'').trim()||t;
+      doc.setFont('Montserrat','bold'); doc.setFontSize(15*k);
+      const lines=doc.splitTextToSize(shown,CW-30*k);
+      const boxH=Math.max(14*k,lines.length*6.8*k+9*k);
+      y+=3*k;
+      if(draw){
+        setF(doc,BLUSH); doc.roundedRect(ML,y,CW,boxH,2.5,2.5,'F');
+        setD(doc,BLUSH_D); doc.setLineWidth(0.4); doc.roundedRect(ML,y,CW,boxH,2.5,2.5,'S');
+        doc.setFont('Montserrat','bold'); doc.setFontSize(7.5*k); setC(doc,TERRA);
+        spacedText(doc,'VALOR',ML+9*k,y+6*k,1.2,'left');
+        doc.setFont('Montserrat','bold'); doc.setFontSize(15*k); setC(doc,TERRA);
+        const base=y+boxH-4.8*k-(lines.length-1)*6.8*k;
+        for(let i=0;i<lines.length;i++) doc.text(lines[i],ML+9*k,base+i*6.8*k);
+      }
+      return y+boxH+7*k;
+    }
+    // parrafo (intro o normal)
+    if(b.isIntro){
+      const fs=12.5*k, lh=5.7*k;
+      doc.setFont('Cormorant','normal'); doc.setFontSize(fs);
+      const lines=doc.splitTextToSize(t,CW);
+      if(draw){ setC(doc,MUTED); for(let i=0;i<lines.length;i++) doc.text(lines[i],ML,y+i*lh); }
+      return y+lines.length*lh+5.5*k;
+    } else {
+      const fs=10*k, lh=5.0*k;
+      doc.setFont('Montserrat','normal'); doc.setFontSize(fs);
+      const lines=doc.splitTextToSize(t,CW);
+      if(draw){ setC(doc,INK); for(let i=0;i<lines.length;i++) doc.text(lines[i],ML,y+i*lh); }
+      return y+lines.length*lh+4.5*k;
+    }
+  }
 
-    footer(doc);
+  function blockHeight(doc,b,k){ return blockFlow(doc,b,k,0,false); }
+  function totalHeight(doc,blocks,k){ let h=0; blocks.forEach(b=>h+=blockHeight(doc,b,k)); return h; }
+
+  function render(doc,modelo,A,meta){
+    registerAssets(doc,A);
+    meta=meta||{};
+    const blocks=modelo.filter(it=>(it.text||'').trim()!=='');
+    // marcar primer parrafo como intro
+    let done=false;
+    blocks.forEach(b=>{ if(!done && b.type==='parrafo'){ b.isIntro=true; done=true; } else b.isIntro=false; });
+
+    // ---- elegir escala k que quepa en 1 hoja ----
+    const KMAX=1.12, KMIN=0.80;
+    let k=null;
+    for(let kk=KMAX; kk>=KMIN-1e-6; kk-=0.02){
+      if(totalHeight(doc,blocks,kk)<=HA){ k=Math.round(kk*100)/100; break; }
+    }
+
+    if(k!==null){
+      // ---- una sola hoja, centrado vertical suave ----
+      const total=totalHeight(doc,blocks,k);
+      let y=CONTENT_TOP+Math.max(0,(HA-total))*0.30;
+      pageChrome(doc); header(doc,A,meta,0,1);
+      blocks.forEach(b=>{ y=blockFlow(doc,b,k,y,true); });
+      footerFull(doc);
+      return doc;
+    }
+
+    // ---- no cabe: paginar balanceado a escala mínima ----
+    k=KMIN;
+    const H=blocks.map(b=>blockHeight(doc,b,k));
+    const total=H.reduce((a,b)=>a+b,0);
+    const nPages=Math.max(2,Math.ceil(total/HA));
+    const target=total/nPages;
+    const pages=[]; let cur=[], curH=0;
+    for(let i=0;i<blocks.length;i++){
+      const hi=H[i];
+      const keepNext=(blocks[i].type==='titulo')?(H[i+1]||0):0; // el título no debe quedar huérfano al pie
+      if(cur.length>0 && ( curH+hi>HA
+            || (keepNext && curH+hi+keepNext>HA)
+            || (pages.length<nPages-1 && curH+hi>target+8) )){
+        pages.push(cur); cur=[]; curH=0;
+      }
+      cur.push(i); curH+=hi;
+    }
+    if(cur.length) pages.push(cur);
+    const TP=pages.length;
+    pages.forEach((idxs,p)=>{
+      if(p>0) doc.addPage();
+      pageChrome(doc); header(doc,A,meta,p,TP);
+      let y=CONTENT_TOP;
+      idxs.forEach(i=>{ y=blockFlow(doc,blocks[i],k,y,true); });
+      if(p===TP-1) footerFull(doc); else footerSlim(doc,p,TP);
+    });
     return doc;
   }
 
-  const API = { render, registerAssets, palette:{CREAM,BLUSH,TERRA,TERRA_S,SAGE,SAGE_S,INK,MUTED,BLUSH_D} };
-  if(typeof module!=='undefined' && module.exports){ module.exports=API; }
-  global.PresupuestoRender = API;
-
-})(typeof window!=='undefined'? window : globalThis);
+  const API={ render, registerAssets, palette:{CREAM,BLUSH,TERRA,TERRA_S,SAGE,SAGE_S,INK,MUTED,BLUSH_D} };
+  if(typeof module!=='undefined'&&module.exports) module.exports=API;
+  global.PresupuestoRender=API;
+})(typeof window!=='undefined'?window:globalThis);
 
 
 const EJEMPLO = `Buenos días Patricia, envío presupuesto solicitado para Coffee mejorado, para el 26 de junio a las 11:00 hrs. en la Facultad Forestal.
@@ -407,14 +449,16 @@ function renderPreview(){
   });
 }
 
+function fechaHoy(){ try{ return new Date().toLocaleDateString('es-CL',{day:'numeric',month:'long',year:'numeric'}); }catch(e){ return ''; } }
 function descargarPDF(){
   if(!modelo.length){ alert('No hay contenido. Pega el texto y presiona "Generar borrador".'); return; }
   const { jsPDF }=window.jspdf;
   const doc=new jsPDF({unit:'mm',format:'a4'});
-  PresupuestoRender.render(doc, modelo, ASSETS);
+  const meta={ fecha: fechaHoy(), lugar:'Talcahuano' };
+  PresupuestoRender.render(doc, modelo, ASSETS, meta);
   doc.save('Presupuesto Nubia Avendano.pdf');
 }
-window.addEventListener('load',()=>renderPreview());
+window.addEventListener('load',()=>{ renderPreview(); var dt=document.getElementById('pvDate'); if(dt) dt.textContent='Talcahuano, '+fechaHoy(); });
 </script>
 </body>
 </html>
