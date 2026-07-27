@@ -128,6 +128,7 @@ textarea{width:100%;min-height:220px;padding:13px;border:1px solid var(--borde);
           <div class="pdf-empty" id="pdfEmpty">Pega el texto y presiona <b>“Generar borrador”</b> para ver la vista previa en tamaño A4.</div>
         </div>
         <button class="btn big" onclick="descargarPDF()">⬇ Descargar PDF</button>
+        <button class="btn big wa" onclick="enviarWhatsApp()">Enviar por WhatsApp</button>
       </div>
     </div>
   </div>
@@ -479,6 +480,25 @@ function descargarPDF(){
   const meta={ fecha: fechaHoy(), lugar:'Talcahuano' };
   PresupuestoRender.render(doc, modelo, ASSETS, meta);
   doc.save('Presupuesto Nubia Avendano.pdf');
+}
+async function enviarWhatsApp(){
+  if(!modelo.length || !modelo.some(m=>(m.text||'').trim())){ alert('Primero pega el texto y presiona "Generar borrador".'); return; }
+  const { jsPDF }=window.jspdf;
+  const doc=new jsPDF({unit:'mm',format:'a4'});
+  PresupuestoRender.render(doc, modelo.map(m=>({text:m.text,type:m.type})), ASSETS, { fecha: fechaHoy(), lugar:'Talcahuano' });
+  const nombre='Presupuesto Nubia Avendano.pdf';
+  const texto='Hola! Te envío el presupuesto de Nubia Avendaño Banquetería.';
+  let file=null;
+  try{ file=new File([doc.output('blob')], nombre, {type:'application/pdf'}); }catch(e){}
+  // Móvil / navegadores con compartir de archivos: abre el menú -> WhatsApp -> contacto
+  if(file && navigator.canShare && navigator.canShare({files:[file]})){
+    try{ await navigator.share({ files:[file], title:'Presupuesto', text: texto }); return; }
+    catch(e){ if(e && e.name==='AbortError') return; }
+  }
+  // Escritorio (sin compartir de archivos): descarga el PDF y abre WhatsApp para adjuntarlo
+  doc.save(nombre);
+  window.open('https://wa.me/?text='+encodeURIComponent(texto+' (te adjunto el PDF que acabo de descargar)'),'_blank');
+  setTimeout(function(){ alert('Descargué el PDF y abrí WhatsApp. Elige el contacto y adjunta el PDF con el clip 📎.'); }, 400);
 }
 window.addEventListener('load',()=>{ renderPreview(); var dt=document.getElementById('pvDate'); if(dt) dt.textContent='Talcahuano, '+fechaHoy(); });
 </script>
